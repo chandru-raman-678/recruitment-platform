@@ -11,6 +11,7 @@ class MySQL:
             user=current_app.config["MYSQL_USER"],
             password=current_app.config["MYSQL_PASSWORD"],
             database=current_app.config["MYSQL_DATABASE"],
+            port=current_app.config["MYSQL_PORT"],
         )
 
 db = MySQL()
