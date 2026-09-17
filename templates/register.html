@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Register | RecruitHub{% endblock %}
+{% block content %}
+<section class="form-page">
+    <form class="form-card" method="post" id="registerForm">
+        <p class="eyebrow">JOIN RECRUITHUB</p>
+        <h1>Create Account</h1>
+        <label>Full Name</label>
+        <input type="text" name="full_name" required>
+        <label>Email</label>
+        <input type="email" name="email" required>
+        <label>Password</label>
+        <input type="password" name="password" minlength="6" required>
+        <label>Account Type</label>
+        <select name="role" required>
+            <option value="candidate">Candidate</option>
+            <option value="recruiter">Recruiter</option>
+        </select>
+        <button type="submit">Create Account</button>
+    </form>
+</section>
+{% endblock %}

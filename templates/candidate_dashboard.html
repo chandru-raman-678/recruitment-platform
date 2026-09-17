@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Candidate Dashboard{% endblock %}
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">CANDIDATE</p>
+    <h1>Welcome, {{ session.get('full_name') }}</h1>
+</section>
+<section class="section">
+    <h2>My Applications</h2>
+    <div class="table-wrap">
+    <table>
+        <tr><th>Job</th><th>Company</th><th>Status</th><th>Applied</th></tr>
+        {% for app in applications %}
+        <tr><td>{{ app.title }}</td><td>{{ app.company_name }}</td><td><span class="status">{{ app.status }}</span></td><td>{{ app.applied_at }}</td></tr>
+        {% else %}
+        <tr><td colspan="4">You haven't applied for any jobs yet.</td></tr>
+        {% endfor %}
+    </table>
+    </div>
+</section>
+{% endblock %}

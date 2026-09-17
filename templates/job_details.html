@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ job.title }} | RecruitHub{% endblock %}
+{% block content %}
+<section class="section detail-layout">
+    <article class="detail-card">
+        <span class="tag">{{ job.job_type or 'Full Time' }}</span>
+        <h1>{{ job.title }}</h1>
+        <h3>{{ job.company_name }}</h3>
+        <p>{{ job.location }} · {{ job.experience }} · {{ job.salary }}</p>
+        <hr>
+        <h2>Job Description</h2>
+        <p class="long-text">{{ job.description }}</p>
+        <h2>Required Skills</h2>
+        <p>{{ job.skills }}</p>
+        <h2>About the Company</h2>
+        <p class="long-text">{{ job.company_description or 'No company description provided.' }}</p>
+    </article>
+
+    <aside class="apply-card">
+        {% if session.get('role') == 'candidate' %}
+        <h2>Apply for this job</h2>
+        <form method="post" action="{{ url_for('applications.apply', job_id=job.id) }}">
+            <label>Cover Letter</label>
+            <textarea name="cover_letter" rows="8" placeholder="Tell the recruiter why you are a good fit..."></textarea>
+            <button>Apply Now</button>
+        </form>
+        {% elif not session.get('user_id') %}
+        <h2>Ready to apply?</h2>
+        <p>Login or create a candidate account to apply.</p>
+        <a class="button" href="{{ url_for('auth.login') }}">Login to Apply</a>
+        {% else %}
+        <p>Recruiters cannot apply for jobs.</p>
+        {% endif %}
+    </aside>
+</section>
+{% endblock %}

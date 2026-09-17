@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Jobs | RecruitHub{% endblock %}
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">OPPORTUNITIES</p>
+    <h1>Find your next job</h1>
+</section>
+
+<section class="section">
+    <form class="filter-form" method="get">
+        <input name="keyword" value="{{ keyword }}" placeholder="Python Developer, SQL, company...">
+        <input name="location" value="{{ location }}" placeholder="Chennai, Bangalore...">
+        <button>Search</button>
+    </form>
+
+    <div class="job-grid">
+    {% for job in jobs %}
+        <article class="job-card">
+            <span class="tag">{{ job.job_type or 'Full Time' }}</span>
+            <h3>{{ job.title }}</h3>
+            <p class="company">{{ job.company_name }}</p>
+            <p>{{ job.location or 'Location not specified' }}</p>
+            <p>{{ job.experience or 'Experience not specified' }} · {{ job.salary or 'Salary not specified' }}</p>
+            <p class="skills">{{ job.skills or '' }}</p>
+            <a class="outline-button" href="{{ url_for('jobs.job_details', job_id=job.id) }}">View Details</a>
+        </article>
+    {% else %}
+        <p>No matching jobs found.</p>
+    {% endfor %}
+    </div>
+</section>
+{% endblock %}

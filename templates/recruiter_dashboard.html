@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Recruiter Dashboard{% endblock %}
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">RECRUITER</p>
+    <h1>Recruiter Dashboard</h1>
+</section>
+<section class="section">
+{% if not company %}
+<div class="form-card wide">
+    <h2>Create Company</h2>
+    <form method="post" action="{{ url_for('companies.create_company') }}">
+        <input name="name" placeholder="Company name" required>
+        <input name="location" placeholder="Location">
+        <input name="website" placeholder="Website">
+        <textarea name="description" placeholder="Company description"></textarea>
+        <button>Create Company</button>
+    </form>
+</div>
+{% else %}
+<div class="form-card wide">
+    <h2>Post a Job</h2>
+    <form method="post" action="{{ url_for('companies.create_job') }}" class="two-col">
+        <input name="title" placeholder="Job title" required>
+        <input name="location" placeholder="Location">
+        <input name="job_type" placeholder="Job type (Full Time)">
+        <input name="experience" placeholder="Experience (0-2 years)">
+        <input name="salary" placeholder="Salary">
+        <input name="skills" placeholder="Skills: Python, SQL, Flask">
+        <textarea class="full" name="description" placeholder="Job description" required></textarea>
+        <button class="full">Post Job</button>
+    </form>
+</div>
+
+<h2>Your Jobs</h2>
+<div class="job-grid">
+{% for job in jobs %}
+<article class="job-card">
+    <h3>{{ job.title }}</h3>
+    <p>{{ job.location }} · {{ job.job_type }}</p>
+    <form method="post" action="{{ url_for('companies.delete_job', job_id=job.id) }}">
+        <button class="danger" onclick="return confirm('Delete this job?')">Delete</button>
+    </form>
+</article>
+{% else %}
+<p>No jobs posted yet.</p>
+{% endfor %}
+</div>
+
+<h2>Applicants</h2>
+<div class="table-wrap">
+<table>
+<tr><th>Candidate</th><th>Email</th><th>Job</th><th>Status</th><th>Update</th></tr>
+{% for applicant in applicants %}
+<tr>
+<td>{{ applicant.full_name }}</td>
+<td>{{ applicant.email }}</td>
+<td>{{ applicant.title }}</td>
+<td>{{ applicant.status }}</td>
+<td>
+<form method="post" action="{{ url_for('applications.update_status', application_id=applicant.id) }}">
+<select name="status">
+{% for status in ['Applied','Under Review','Shortlisted','Interview','Selected','Rejected'] %}
+<option {% if applicant.status == status %}selected{% endif %}>{{ status }}</option>
+{% endfor %}
+</select>
+<button>Update</button>
+</form>
+</td>
+</tr>
+{% else %}
+<tr><td colspan="5">No applicants yet.</td></tr>
+{% endfor %}
+</table>
+</div>
+{% endif %}
+</section>
+{% endblock %}

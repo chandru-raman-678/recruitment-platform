@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Home | RecruitHub{% endblock %}
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">CAREERS MADE SIMPLE</p>
+        <h1>Find the right job.<br>Build your future.</h1>
+        <p>Search opportunities from companies and apply in a few simple steps.</p>
+        <form class="search-box" action="{{ url_for('jobs.jobs') }}" method="get">
+            <input name="keyword" placeholder="Job title, skill or company">
+            <input name="location" placeholder="Location">
+            <button>Search Jobs</button>
+        </form>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <div><p class="eyebrow">LATEST OPPORTUNITIES</p><h2>Featured Jobs</h2></div>
+        <a href="{{ url_for('jobs.jobs') }}">View all jobs →</a>
+    </div>
+    <div class="job-grid">
+        {% for job in jobs %}
+        <article class="job-card">
+            <span class="tag">{{ job.job_type or 'Full Time' }}</span>
+            <h3>{{ job.title }}</h3>
+            <p class="company">{{ job.company_name }}</p>
+            <p>{{ job.location or 'Location not specified' }}</p>
+            <p>{{ job.experience or 'Experience not specified' }} · {{ job.salary or 'Salary not specified' }}</p>
+            <a class="outline-button" href="{{ url_for('jobs.job_details', job_id=job.id) }}">View Details</a>
+        </article>
+        {% else %}
+        <p>No jobs available yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
