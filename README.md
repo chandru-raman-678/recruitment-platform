@@ -75,7 +75,7 @@ python app.py
 
 8. Open:
 
-http://127.0.0.1:5000
+https://recruitment-platform-bcu6.onrender.com/
 
 ## Important
 
