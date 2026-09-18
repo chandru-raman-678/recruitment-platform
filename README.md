@@ -76,7 +76,3 @@ python app.py
 8. Open:
 
 https://recruitment-platform-bcu6.onrender.com/
-
-## Important
-
-This is a learning/project foundation. Before production deployment, add CSRF protection, stronger validation, rate limiting, secure production configuration, migrations, logging, tests, resume upload validation, and proper secret management.
